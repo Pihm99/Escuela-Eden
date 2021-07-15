@@ -49,14 +49,10 @@ p
 @estudiantes/templates/estudiantes/private/notas/listarNotas.html,4\8\489f7a6d4bf8dece85a3b04e4b66b32effd437db
 \
 ,estudiantes/static/estudiantes/css/style.css,b\0\b0cb0822395c26205680cd1105fd713d0e1af3d0
-C
-estudiantes/urls.py,c\9\c97c09f19101a560290f335250be4e276f56a3d5
 E
 estudiantes/models.py,1\b\1b43db877090dc3d21da6e521694ea8591a601d8
 D
 estudiantes/forms.py,2\9\299ad3ccf3881d7d0f20fecefe4f59f56f1c324e
-D
-estudiantes/views.py,a\0\a0f35248fd831facd9ddd266a17754999ae22e29
 @
 requirements.txt,1\9\19359a61ae2446b51b549167b014da2fcf265768
 8

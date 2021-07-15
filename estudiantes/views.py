@@ -251,8 +251,8 @@ def modificar_curso(request, nombreCurso):
 
 
 @admin_required
-def eliminar_curso(request, id):
-    curso = get_object_or_404(Curso, id=id)
+def eliminar_curso(request, nombreCurso):
+    curso = get_object_or_404(Curso, nombreCurso=nombreCurso)
     curso.delete()
     messages.success(request, "Eliminado correctamente")
     return redirect('list_cursos')
