@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+
+  <head>
+  {% load static %}
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static 'estudiantes/img/favicon.ico' %}">
+    <title>Escuela El Eden</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Additional CSS Files -->
+      {% block css %}{% endblock %}
+    <link rel="stylesheet" href="{% static 'estudiantes/css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'estudiantes/css/templatemo-grad-school.css' %}">
+    <link rel="stylesheet" href="{% static 'estudiantes/css/owl.css' %}">
+    <link rel="stylesheet" href="{% static 'estudiantes/css/lightbox.css' %}">
+  <link rel="stylesheet" href="{% static 'estudiantes/css/style.css' %}">
+  </head>
+
+<body>
+
+  <!--header-->
+  <header class="main-header clearfix" role="header">
+    <div class="logo">
+      <a href="{% url 'home' %}"><em>Escuela</em> El Eden</a>
+    </div>
+    <a href="#menu" class="menu-link"><em class="fa fa-bars"></em></a>
+    <nav id="menu" class="main-nav" role="navigation">
+      <ul class="main-menu">
+        <li><a href="{% url 'home' %}">Home</a></li>
+          {% if request.user.is_authenticated %} {% if request.user.is_admin %}
+        <li><a href="{% url 'list_alumnos' %}">Alumnos</a></li>
+        <li><a href="{% url 'list_asignaturas' %}">Asignaturas</a></li>
+        <li><a href="{% url 'list_cursos' %}">Cursos</a></li>
+        <li><a href="{% url 'list_profesores' %}" >Profesores</a></li>
+          {% endif %} {% if request.user.tipo == "2" %}
+      <li><a href="{% url 'list_asistencias' %}">Asistencias</a></li>
+        <li><a href="{% url 'list_notas' %}" >Notas</a></li>
+      {% endif %}{% if request.user.tipo == "1" %}
+        <li><a href="{% url 'list_notas' %}" >Notas</a></li>
+      {% endif %}
+      <li><a href="#">{{ request.user.rut }}</a></li>
+        <li><a href="{% url 'logout' %}" >Cerrar Sesion</a></li>
+      {% else %}
+      <li><a href="{% url 'login' %}">Iniciar Sesion</a></li>
+      {% endif %}
+      </ul>
+    </nav>
+  </header>
+{% block contenido %} {% endblock %}
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <p><em class="fa fa-copyright"></em> Copyright 2021 by El Eden
+
+           | Design: <a href="#" rel="sponsored" target="_parent">Users</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+    <!-- Bootstrap JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<!-- Scripts -->
+{% if messages %}
+        {% for m in messages %}
+        <script>
+        Swal.fire({
+            "title": "",
+            "text": "{{ m }}",
+            "icon": "success",
+        })
+        </script>
+        {% endfor %}
+    {% endif %}
+{% block js %} {% endblock %}
+<script src="{% static 'estudiantes/js/isotope.min.js' %}"></script>
+    <script src="{% static 'estudiantes/js/owl-carousel.js' %}"></script>
+    <script src="{% static 'estudiantes/js/lightbox.js' %}"></script>
+    <script src="{% static 'estudiantes/js/tabs.js' %}"></script>
+    <script src="{% static 'estudiantes/js/video.js' %}"></script>
+    <script src="{% static 'estudiantes/js/slick-slider.js' %}"></script>
+    <script src="{% static 'estudiantes/js/custom.js' %}"></script>
+    <script>
+        //according to loftblog tut
+        $('.nav li:first').addClass('active');
+
+        var showSection = function showSection(section, isAnimate) {
+          var
+          direction = section.replace(/#/, ''),
+          reqSection = $('.section').filter('[data-section="' + direction + '"]'),
+          reqSectionPos = reqSection.offset().top - 0;
+
+          if (isAnimate) {
+            $('body, html').animate({
+              scrollTop: reqSectionPos },
+            800);
+          } else {
+            $('body, html').scrollTop(reqSectionPos);
+          }
+
+        };
+
+        var checkSection = function checkSection() {
+          $('.section').each(function () {
+            var
+            $this = $(this),
+            topEdge = $this.offset().top - 80,
+            bottomEdge = topEdge + $this.height(),
+            wScroll = $(window).scrollTop();
+            if (topEdge < wScroll && bottomEdge > wScroll) {
+              var
+              currentId = $this.data('section'),
+              reqLink = $('a').filter('[href*=\\#' + currentId + ']');
+              reqLink.closest('li').addClass('active').
+              siblings().removeClass('active');
+            }
+          });
+        };
+
+        $(window).scroll(function () {
+          checkSection();
+        });
+    </script>
+</body>

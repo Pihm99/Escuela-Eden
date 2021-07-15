@@ -1,0 +1,86 @@
+{% extends 'estudiantes/base.html' %}
+
+{% block css %}
+{% endblock %}
+
+{% block js %}
+    <script>
+        let table = document.getElementById('tabla');
+
+        for(let i=1; i< table.rows.length; i++){
+        let suma = 0;
+        let conteo = 0;
+        for(let j=2; j < table.rows[i].cells.length && j < 8; j++){
+            if (table.rows[i].cells[j].innerText !== "None") {
+                let num = table.rows[i].cells[j].innerHTML;
+                let newNum = num.replace(/,/g, ".");
+                suma += parseFloat(newNum);
+                conteo++;
+            }
+        }
+        table.rows[i].cells[8].innerText = (suma / conteo).toFixed(2);
+    }
+    </script>
+{% endblock %}
+
+{% block contenido %}
+        <br>
+    <br>
+    <br>
+    <div class="card">
+    <div class="card-body">
+        <h2>Listado de notas</h2>
+    {% if notas %}
+            <table id="tabla" class="table table-striped table-hover table-responsive-sm">
+        <thead>
+            <tr>
+                <td>Nombre del alumno</td>
+                <td>Asignatura</td>
+                <td>Nota 1</td>
+                <td>Nota 2</td>
+                <td>Nota 3</td>
+                <td>Nota 4</td>
+                <td>Nota 5</td>
+                <td>Nota 6</td>
+                <td id="avg">Promedio</td>
+                <td>Opciones</td>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for n in notas %}
+                <tr>
+                    <td>{{ n.alumno.get_fullname }}</td>
+                    <td>{{ n.asignatura.nombreAsignatura }}</td>
+                    <td>{{ n.nota_1 }}</td>
+                    <td>{{ n.nota_2 }}</td>
+                    <td>{{ n.nota_3 }}</td>
+                    <td>{{ n.nota_4 }}</td>
+                    <td>{{ n.nota_5 }}</td>
+                    <td>{{ n.nota_6 }}</td>
+                <td> Implementando</td>
+                    {% if user.is_teacher %}
+                    <td>
+                        <a class="btn btn-info btn-sm" href="{% url 'modify_nota' n.id %}">Editar</a>
+                        <a class="btn btn-danger btn-sm" href="{% url 'delete_nota' n.id %}">Eliminar</a>
+                    </td>
+                {% else %}
+                <td> - </td>
+                {% endif %}
+                </tr>
+                {% endfor %}
+            {% else %}
+                <h1>No hay registros para mostrar</h1>
+            {% endif %}
+        </tbody>
+    </table>
+    {% if user.is_teacher %}
+    <a class="btn btn-primary btn-sm" href="{% url 'add_nota' %}">Agregar entrada</a>
+    {% endif %}
+    </div>
+</div>
+
+
+
+
+{% endblock %}

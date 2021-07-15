@@ -1,0 +1,56 @@
+{% extends 'estudiantes/base.html' %}
+
+{% block css %}
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+
+{% block contenido %}
+        <br>
+    <br>
+    <br>
+    <div class="card">
+    <div class="card-body">
+        <h2>Listado de asignaturas</h2>
+    {% if asignaturas %}
+            <table class="table table-striped table-hover table-responsive-sm">
+        <thead>
+            <tr>
+                <td>Codigo</td>
+                <td>Nombre de la asignatura</td>
+                <td>Opciones</td>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for a in asignaturas %}
+                <tr>
+                    <td>{{ a.codigo }}</td>
+                    <td>{{ a.nombreAsignatura }}  </td>
+                    {% if user.is_admin %}
+                    <td>
+                        <a class="btn btn-info btn-sm" href="{% url 'modify_asignatura' a.codigo %}">Editar</a>
+                        <a class="btn btn-danger btn-sm" href="{% url 'delete_asignatura' a.codigo %}">Eliminar</a>
+                    </td>
+                {% else %}
+                <td> - </td>
+                {% endif %}
+                </tr>
+                {% endfor %}
+            {% else %}
+                <h1>No hay registros para mostrar</h1>
+            {% endif %}
+        </tbody>
+    </table>
+    {% if user.is_admin %}
+    <a class="btn btn-primary btn-sm" href="{% url 'add_asignatura' %}">Agregar entrada</a>
+    {% endif %}
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}

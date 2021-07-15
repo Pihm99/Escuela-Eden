@@ -1,0 +1,56 @@
+{% extends 'estudiantes/base.html' %}
+{% load static %}
+{% block css %}
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+
+{% block contenido %}
+    <br>
+    <br>
+    <br>
+<div class="card">
+    <div class="card-body">
+        <h2>Listado de alumnos</h2>
+    {% if alumnos %}
+        <table class="table table-striped table-hover table-responsive-sm">
+        <thead>
+            <tr>
+                <td>Nombre</td>
+                <td>Rut</td>
+                <td>Email</td>
+                <td>Opciones</td>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for a in alumnos %}
+                <tr>
+                    <td>{{ a.get_fullname }}</td>
+                    <td>{{ a.rut }}  </td>
+                    <td>{{ a.email }}</td>
+                    {% if user.is_admin %}
+                    <td>
+                        <a class="btn btn-info btn-sm" href="{% url 'modify_alumno' a.rut %}">Editar</a>
+                        <a class="btn btn-danger btn-sm" href="{% url 'delete_alumno' a.rut %}">Eliminar</a>
+                    </td>
+                {% else %}
+                <td> - </td>
+                {% endif %}
+                </tr>
+                {% endfor %}
+            {% else %}
+                <h1>No hay registros para mostrar</h1>
+            {% endif %}
+        </tbody>
+    </table>
+    {% if user.is_admin %}
+    <a class="btn btn-primary btn-sm" href="{% url 'add_alumno' %}">Agregar entrada</a>
+    {% endif %}
+    </div>
+</div>
+
+
+
+{% endblock %}

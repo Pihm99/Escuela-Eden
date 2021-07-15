@@ -1,0 +1,67 @@
+{% extends 'estudiantes/base.html' %}
+
+{% block css %}
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+
+{% block contenido %}
+        <br>
+    <br>
+    <br>
+    <div class="card">
+    <div class="card-body">
+        <h2>Listado de cursos</h2>
+    {% if cursos %}
+            <table class="table table-striped table-hover table-responsive-sm">
+        <thead>
+            <tr>
+                <td>Nombre</td>
+                <td>Alumnos</td>
+                <td>Opciones</td>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for c in cursos %}
+                <tr>
+                    <td>{{ c.nombreCurso }}</td>
+                {% if c.alumnos.all %}
+                    <td>
+                    {% for a in c.alumnos.all %}
+                        {{ a }}
+                        <br>
+                    {% endfor %}
+                    </td>
+
+                {% else %}
+                    <td>No hay alumnos</td>
+                {% endif %}
+
+                    {% if user.is_admin %}
+                    <td>
+                        <a class="btn btn-info btn-sm" href="{% url 'modify_curso' c.nombreCurso %}">Editar</a>
+                        <a class="btn btn-danger btn-sm" href="{% url 'delete_curso' c.nombreCurso %}">Eliminar</a>
+                    </td>
+                {% else %}
+                <td> - </td>
+                {% endif %}
+                </tr>
+                {% endfor %}
+            {% else %}
+                <h1>No hay registros para mostrar</h1>
+            {% endif %}
+        </tbody>
+    </table>
+        {% if user.is_admin %}
+    <a class="btn btn-primary btn-sm" href="{% url 'add_curso' %}">Agregar entrada</a>
+    {% endif %}
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}
