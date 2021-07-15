@@ -37,8 +37,6 @@ q
 Aestudiantes/templates/estudiantes/private/notas/agregarNotas.html,e\2\e22ae9228839f71976e259e2ee529393cef907e0
 y
 Iestudiantes/templates/estudiantes/admin/profesores/modificarProfesor.html,2\f\2fcd73735999f6b473eb2d0d756b061eaa88f55f
-c
-3estudiantes/templates/estudiantes/public/index.html,6\1\613ce218218d008e872f9602cdfc14ff5f628dad
 C
 estudiantes/apps.py,a\9\a9bec7768b1f90750b901302ab40ade66fef1b70
 D
